@@ -1,31 +1,27 @@
 # TaskTracker
 
 Gerenciador de tarefas em linha de comando (CLI), desenvolvido em **Python 3**
-como entrega intermediária (Fase 2) do **Bootcamp II**.
+para o **Bootcamp II**, agora **conteinerizado com Docker**.
 
 ## Descrição funcional
 
-O TaskTracker permite cadastrar e visualizar tarefas pelo terminal, com
-validação das informações digitadas:
+O TaskTracker permite cadastrar e visualizar tarefas pelo terminal, com validação:
 
-- **Título** (obrigatório): entradas vazias ou só com espaços são rejeitadas e o sistema pede novamente.
+- **Título** (obrigatório): entradas vazias ou só com espaços são rejeitadas.
 - **Descrição**: texto livre.
 - **Prioridade**: aceita somente `Alta`, `Média` (ou `Media`) e `Baixa`.
-- **Data limite**: texto livre ou no formato `DD/MM/AAAA`.
-- **Status**: definido automaticamente como `Pendente` no cadastro.
+- **Data limite**: texto livre ou `DD/MM/AAAA`.
+- **Status**: definido automaticamente como `Pendente`.
 
-## Menu
-
-1. Cadastrar nova tarefa
-2. Visualizar tarefas cadastradas
-3. Sair da aplicação
+Menu: 1. Cadastrar nova tarefa | 2. Visualizar tarefas | 3. Sair
 
 ## Tecnologias
 
-- Python 3.8 ou superior (somente biblioteca padrão, sem dependências externas)
-- Git e GitHub para versionamento
+- Python 3.11 (somente biblioteca padrão)
+- Docker e Docker Compose
+- Git e GitHub
 
-## Instalação e execução
+## Executando localmente (sem Docker)
 
 ```bash
 git clone https://github.com/MarcelinhoJC/tasktracker-projeto.git
@@ -33,20 +29,45 @@ cd tasktracker-projeto
 python src/main.py
 ```
 
-> No Linux/macOS, caso `python` não funcione, use `python3 src/main.py`.
+## Guia Docker
+
+Pré-requisito: [Docker](https://docs.docker.com/get-docker/) instalado e em execução.
+
+### 1. Como construir a imagem
+
+```bash
+docker build -t tasktracker-app .
+```
+
+### 2. Como rodar o container em modo isolado
+
+```bash
+docker run -it --rm tasktracker-app
+```
+
+### 3. Como rodar via orquestração (Recomendado)
+
+```bash
+docker compose run --rm tasktracker
+```
+
+> O `-it` (ou `stdin_open` + `tty` no Compose) é necessário porque a aplicação
+> usa `input()` e precisa de um terminal interativo dentro do container.
 
 ## Estrutura do repositório
 
 ```
 tasktracker-projeto/
-├── README.md
 ├── .gitignore
 ├── docs/
 │   └── planejamento_logico.pdf
-└── src/
-    └── main.py
+├── src/
+│   └── main.py
+├── Dockerfile
+├── docker-compose.yml
+└── README.md
 ```
 
 ## Autor
 
-Marcelo Augusto de Abreu Santos — Análise e Desenvolvimento de Sistemas
+Marcelo Augusto de Abreu Santos — Análise e Desenvolvimento de Sistemas (Polo Asa Norte)
